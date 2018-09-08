@@ -18,4 +18,6 @@ FeedReader is a web-based application that reads RSS feeds. The application util
 
 [Jasmine](http://jasmine.github.io/)
 
+[Jasmine Matchers](https://jasmine.github.io/api/2.7/matchers.html)
+
 [JavaScript Testing on Udacity](https://www.udacity.com/course/ud549)
