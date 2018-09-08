@@ -16,12 +16,12 @@ $(function() {
             expect(allFeeds.length).not.toBe(0);
         });
 
-
-        /* TODO: Write a test that loops through each feed
+        /* This test loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-         it('all URLs defined', function() {
+
+        it('all URLs are defined', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined();
                 expect(feed.url.length).toBeGreaterThan(0);
@@ -61,7 +61,7 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
-          it('appears and disappears when clicked', function() {
+          it('appears when clicked', function() {
 
              menu.click();
              expect($('body').hasClass('menu-hidden')).toBe(false);
@@ -71,7 +71,7 @@ $(function() {
           it('disappears when clicked again', function() {
               menu.click();
               expect($('body').hasClass('menu-hidden')).toBe(true);
-              
+
           });
       });
 
@@ -98,13 +98,26 @@ $(function() {
 
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {
+        var firstFeed;
+        var secondFeed;
 
       /* TODO: Write a test that ensures when a new feed is loaded
        * by the loadFeed function that the content actually changes.
        * Remember, loadFeed() is asynchronous.
        */
-       it('changes content when loaded', function() {
+       beforeEach(function(done) {
+          loadFeed(0, function() {
+            firstFeed = $('.feed').html();
+            loadFeed(1, function() {
+                secondFeed = $('.feed').html();
+                done();
+            });
+          });
+       });
 
+
+       it('changes feed content when loaded', function() {
+          expect(firstFeed).not.toBe(secondFeed);
        });
 
     });
