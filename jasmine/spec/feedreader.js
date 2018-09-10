@@ -56,12 +56,12 @@ $(function() {
         * should have two expectations: does the menu display when
         * clicked and does it hide when clicked again.
         */
-        it('appears when clicked', function() {
+        it('appears when clicked', function() { // toggle ON
             menu.click();
             expect($('body').hasClass('menu-hidden')).toBe(false);
         });
 
-        it('disappears when clicked again', function() {
+        it('disappears when clicked again', function() { // toggle OFF
             menu.click();
             expect($('body').hasClass('menu-hidden')).toBe(true);
 
@@ -99,17 +99,17 @@ $(function() {
         * Remember, loadFeed() is asynchronous.
         */
             beforeEach(function(done) {
-                loadFeed(0, function() {
-                firstFeed = $('.feed').html();
-                    loadFeed(1, function() {
-                    secondFeed = $('.feed').html();
+                loadFeed(0, function() { // 1st loading
+                firstFeed = $('.feed').html(); // store the result
+                    loadFeed(1, function() { // 2nd loading
+                    secondFeed = $('.feed').html(); // store result
                     done();
                     });
                 });
             });
 
         it('changes feed content when loaded', function() {
-            expect(firstFeed).not.toEqual(secondFeed);
+            expect(firstFeed).not.toEqual(secondFeed); // compare
         });
     });
 
