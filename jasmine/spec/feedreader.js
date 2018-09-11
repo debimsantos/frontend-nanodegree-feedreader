@@ -5,6 +5,7 @@
  */
 
 $(function() {
+
     /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
@@ -64,13 +65,11 @@ $(function() {
         it('disappears when clicked again', function() { // toggle OFF
             menu.click();
             expect($('body').hasClass('menu-hidden')).toBe(true);
-
         });
     });
 
 
     describe('Initial Entries', function() {
-        var feed = $('.feed');
 
         /* Test to ensure that when the loadFeed
         * function is called and completes its work, there is at least
@@ -78,14 +77,24 @@ $(function() {
         * Remember, loadFeed() is asynchronous so this test will require
         * the use of Jasmine's beforeEach and asynchronous done() function.
         */
-            beforeEach(function() {
-                loadFeed(0, function() {
-                done();
-                });
+
+        beforeEach(function (done) {
+            loadFeed(0, function() {
+              done();
+            });
+        });
+
+        it('has at least one entry', function(done) {
+            var feedEntry = [];
+
+            $('.feed .entry').each(function(i, o) {
+              feedEntry.push(o);
             });
 
-        it('has at least one entry', function() {
-            expect(feed.children.length).toBeGreaterThan(0);
+            //console.log(feedEntry); uncomment to see entries
+
+            expect(feedEntry.length).toBeGreaterThan(0);
+            done();
         });
     });
 
@@ -98,15 +107,15 @@ $(function() {
         * by the loadFeed function that the content actually changes.
         * Remember, loadFeed() is asynchronous.
         */
-            beforeEach(function(done) {
-                loadFeed(0, function() { // 1st loading
-                firstFeed = $('.feed').html(); // store the result
-                    loadFeed(1, function() { // 2nd loading
-                    secondFeed = $('.feed').html(); // store result
-                    done();
-                    });
+        beforeEach(function(done) {
+            loadFeed(0, function() { // 1st loading
+            firstFeed = $('.feed').html(); // store the result
+                loadFeed(1, function() { // 2nd loading
+                secondFeed = $('.feed').html(); // store result
+                done();
                 });
             });
+        });
 
         it('changes feed content when loaded', function() {
             expect(firstFeed).not.toEqual(secondFeed); // compare
